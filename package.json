@@ -9,7 +9,8 @@
     "dev": "node --watch backend/src/index.js",
     "init-db": "powershell -ExecutionPolicy Bypass -File database/scripts/init-db.ps1",
     "seed": "node database/scripts/gen-seed.js",
-    "test-api": "node backend/tests/test-api.js"
+    "test-api": "node backend/tests/test-api.js",
+    "build": "node frontend/build.js"
   },
   "engines": {
     "node": ">=18"

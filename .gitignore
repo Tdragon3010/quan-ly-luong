@@ -3,3 +3,5 @@ node_modules/
 .env*
 # cấu hình xem trước của Claude Code
 .claude/
+# thư mục do npm run build tạo ra cho Vercel (nguồn là frontend/)
+public/

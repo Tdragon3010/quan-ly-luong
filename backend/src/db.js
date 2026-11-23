@@ -22,7 +22,8 @@ const pool = mysql.createPool({
   database: process.env.DB_NAME || 'quan_ly_luong',
   charset: 'utf8mb4',
   ssl: sslConfig(),
-  connectionLimit: 10,
+  // Trên Vercel mỗi bản chạy giữ ít kết nối (gói MySQL miễn phí giới hạn tổng số kết nối)
+  connectionLimit: Number(process.env.DB_POOL_LIMIT) || (process.env.VERCEL ? 2 : 10),
   dateStrings: true,     // trả DATE/DATETIME dạng chuỗi, tránh lệch múi giờ
   decimalNumbers: true,  // trả DECIMAL dạng số
 });

@@ -6,6 +6,40 @@ const { HttpError, mysqlErrorToHttp } = require('./utils');
 const { phongBan, chucVu } = require('./routes/danhmuc');
 
 const app = express();
+
+// Bảo vệ bằng mật khẩu (Basic Auth): chỉ bật khi đặt BASIC_AUTH_USER và BASIC_AUTH_PASS
+// (trên Vercel). Trình duyệt sẽ hiện hộp đăng nhập; trên máy không đặt thì không hỏi.
+const AUTH_USER = process.env.BASIC_AUTH_USER;
+const AUTH_PASS = process.env.BASIC_AUTH_PASS;
+if (AUTH_USER && AUTH_PASS) {
+  const crypto = require('crypto');
+  const same = (a, b) => {
+    const x = Buffer.from(String(a)); const y = Buffer.from(String(b));
+    return x.length === y.length && crypto.timingSafeEqual(x, y);
+  };
+  app.use((req, res, next) => {
+    const [type, token] = (req.headers.authorization || '').split(' ');
+    if (type === 'Basic' && token) {
+      const raw = Buffer.from(token, 'base64').toString('utf8');
+      const i = raw.indexOf(':');
+      if (i >= 0 && same(raw.slice(0, i), AUTH_USER) && same(raw.slice(i + 1), AUTH_PASS)) return next();
+    }
+    res.set('WWW-Authenticate', 'Basic realm="Quan ly luong", charset="UTF-8"');
+    if (req.path === '/api/dang-nhap') {
+      // Người dùng bấm Hủy ở hộp đăng nhập
+      return res.status(401).type('html').send('<meta charset="utf-8"><p style="font-family:sans-serif;padding:24px">Cần đăng nhập để dùng ứng dụng. <a href="/api/dang-nhap">Thử lại</a></p>');
+    }
+    res.status(401).json({ error: 'Cần đăng nhập để xem dữ liệu' });
+  });
+}
+
+// Trang đăng nhập: mở trực tiếp trang này thì trình duyệt hiện hộp nhập mật khẩu (Basic Auth),
+// đăng nhập xong quay về trang đang xem. Không bật mật khẩu thì chỉ chuyển về trang chủ.
+app.get('/api/dang-nhap', (req, res) => {
+  const next = String(req.query.next || '');
+  res.redirect('/' + (/^#\/[\w\-/?=&.]*$/.test(next) ? next : ''));
+});
+
 app.use(express.json());
 
 // Ghi log mỗi request API kèm thời gian xử lý

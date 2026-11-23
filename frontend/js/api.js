@@ -5,6 +5,12 @@ export async function api(method, url, body) {
     headers: body !== undefined ? { 'Content-Type': 'application/json' } : {},
     body: body !== undefined ? JSON.stringify(body) : undefined,
   });
+  if (res.status === 401) {
+    // Bản deploy có đặt mật khẩu: chuyển sang trang đăng nhập (trình duyệt hiện hộp nhập mật khẩu),
+    // xong sẽ quay về đúng trang đang xem. Promise không bao giờ xong vì trang sắp chuyển.
+    location.assign('/api/dang-nhap?next=' + encodeURIComponent(location.hash));
+    return new Promise(() => {});
+  }
   let data = null;
   const ct = res.headers.get('content-type') || '';
   if (ct.includes('json')) data = await res.json();
