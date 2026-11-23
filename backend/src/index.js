@@ -66,6 +66,10 @@ app.use('/api', (req, res) => res.status(404).json({ error: 'API không tồn t�
 
 // Giao diện, kể cả thư viện trình duyệt trong frontend/vendor/ (Chart.js, font: tạo bằng npm run build)
 const ROOT = path.join(__dirname, '..', '..'); // thư mục gốc dự án
+// Chart.js được lưu đuôi .txt (xem frontend/build.cjs), trả về với kiểu JavaScript
+app.get('/vendor/chart/chart.umd.min.js', (req, res) => {
+  res.type('application/javascript').sendFile(path.join(ROOT, 'frontend', 'vendor', 'chart', 'chart.umd.min.js.txt'));
+});
 app.use(express.static(path.join(ROOT, 'frontend')));
 
 // Xử lý lỗi tập trung (Express 5 tự bắt lỗi từ các handler async)

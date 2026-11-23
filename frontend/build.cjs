@@ -15,7 +15,9 @@ const OUT = path.join(ROOT, 'public');
 // 1. Thư viện dùng trên trình duyệt -> frontend/vendor/
 fs.rmSync(VENDOR, { recursive: true, force: true });
 fs.mkdirSync(path.join(VENDOR, 'chart'), { recursive: true });
-fs.copyFileSync(path.join(NM, 'chart.js', 'dist', 'chart.umd.min.js'), path.join(VENDOR, 'chart', 'chart.umd.min.js'));
+// Lưu dưới đuôi .txt: khi đóng gói, Vercel xử lý riêng các file .js và file này bị mất (404).
+// Backend có route trả nó về đúng địa chỉ /vendor/chart/chart.umd.min.js với kiểu JavaScript.
+fs.copyFileSync(path.join(NM, 'chart.js', 'dist', 'chart.umd.min.js'), path.join(VENDOR, 'chart', 'chart.umd.min.js.txt'));
 
 // Font: các file .css index.html dùng + đúng những file font chúng trỏ tới
 function copyFont(pkgDir, outName, cssFiles) {
