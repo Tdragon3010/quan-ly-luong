@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Quản lý lương nhân viên</title>
+  <meta name="description" content="Hệ thống quản lý nhân viên, chấm công, thưởng phạt và tính lương hằng tháng.">
+  <meta name="theme-color" content="#f7f9fa">
+  <link rel="icon" href="img/icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/vendor/manrope/index.css">
+  <link rel="stylesheet" href="/vendor/jbmono/400.css">
+  <link rel="stylesheet" href="/vendor/jbmono/500.css">
+  <link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+  <a class="skip-link" href="#view">Bỏ qua menu, tới nội dung</a>
+
+  <div class="shell">
+    <aside class="sidebar" id="sidebar">
+      <div class="brand">
+        <img src="img/icon.svg" alt="" width="32" height="32">
+        <div>
+          <strong>Bảng Lương</strong>
+          <span>Quản lý lương nhân viên</span>
+        </div>
+      </div>
+      <nav aria-label="Chức năng chính">
+        <ul class="nav">
+          <li><a href="#/" data-route="/"><svg class="i"><use href="img/icons.svg#home"/></svg>Tổng quan</a></li>
+          <li><a href="#/nhan-vien" data-route="/nhan-vien"><svg class="i"><use href="img/icons.svg#users"/></svg>Nhân viên</a></li>
+          <li><a href="#/cham-cong" data-route="/cham-cong"><svg class="i"><use href="img/icons.svg#clock"/></svg>Chấm công</a></li>
+          <li><a href="#/thuong-phat" data-route="/thuong-phat"><svg class="i"><use href="img/icons.svg#gift"/></svg>Thưởng / phạt</a></li>
+          <li><a href="#/bang-luong" data-route="/bang-luong"><svg class="i"><use href="img/icons.svg#wallet"/></svg>Bảng lương</a></li>
+          <li><a href="#/bao-cao" data-route="/bao-cao"><svg class="i"><use href="img/icons.svg#chart"/></svg>Báo cáo</a></li>
+          <li><a href="#/danh-muc" data-route="/danh-muc"><svg class="i"><use href="img/icons.svg#layers"/></svg>Phòng ban &amp; chức vụ</a></li>
+        </ul>
+      </nav>
+      <p class="sidebar-foot">Đề tài 13 · Cơ sở dữ liệu</p>
+    </aside>
+
+    <header class="topbar">
+      <button class="icon-btn menu-btn" id="menuBtn" aria-controls="sidebar" aria-expanded="false" aria-label="Mở menu">
+        <svg class="i"><use href="img/icons.svg#menu"/></svg>
+      </button>
+      <strong class="topbar-title" id="topTitle">Tổng quan</strong>
+    </header>
+
+    <main id="view" class="view" tabindex="-1" aria-live="polite"></main>
+  </div>
+
+  <div class="scrim" id="scrim" hidden></div>
+  <dialog id="dialog" class="dialog" aria-labelledby="dialogTitle"></dialog>
+  <div class="toasts" id="toasts" role="status" aria-live="polite"></div>
+
+  <script src="/vendor/chart/chart.umd.min.js"></script>
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>

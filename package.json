@@ -1,0 +1,26 @@
+{
+  "name": "quan-ly-luong-nhan-vien",
+  "version": "1.0.0",
+  "description": "Đề tài 13 – Hệ thống quản lý lương nhân viên (Node.js + Express + MySQL)",
+  "main": "backend/src/index.js",
+  "private": true,
+  "scripts": {
+    "start": "node backend/src/index.js",
+    "dev": "node --watch backend/src/index.js",
+    "init-db": "powershell -ExecutionPolicy Bypass -File database/scripts/init-db.ps1",
+    "seed": "node database/scripts/gen-seed.js",
+    "test-api": "node backend/tests/test-api.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "@fontsource-variable/manrope": "^5.3.0",
+    "@fontsource/jetbrains-mono": "^5.3.0",
+    "chart.js": "^4.6.1",
+    "dotenv": "^18.0.10",
+    "exceljs": "^4.4.0",
+    "express": "^5.3.0",
+    "mysql2": "^3.24.6"
+  }
+}

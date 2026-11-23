@@ -1,0 +1,5 @@
+node_modules/
+# mọi file cấu hình chứa mật khẩu (.env, .env.local-backup, ...)
+.env*
+# cấu hình xem trước của Claude Code
+.claude/
