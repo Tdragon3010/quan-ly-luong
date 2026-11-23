@@ -64,12 +64,8 @@ app.use('/api/bao-cao', require('./routes/baocao'));
 
 app.use('/api', (req, res) => res.status(404).json({ error: 'API không tồn tại' }));
 
-// Giao diện (frontend) + thư viện dùng offline (biểu đồ, font chữ)
+// Giao diện, kể cả thư viện trình duyệt trong frontend/vendor/ (Chart.js, font: tạo bằng npm run build)
 const ROOT = path.join(__dirname, '..', '..'); // thư mục gốc dự án
-const nm = (p) => path.join(ROOT, 'node_modules', p);
-app.use('/vendor/chart', express.static(nm('chart.js/dist')));
-app.use('/vendor/manrope', express.static(nm('@fontsource-variable/manrope')));
-app.use('/vendor/jbmono', express.static(nm('@fontsource/jetbrains-mono')));
 app.use(express.static(path.join(ROOT, 'frontend')));
 
 // Xử lý lỗi tập trung (Express 5 tự bắt lỗi từ các handler async)
