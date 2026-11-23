@@ -16,6 +16,11 @@ fs.cpSync(__dirname, OUT, {
   filter: (src) => !['build.js', 'README.md'].includes(path.basename(src)),
 });
 
+// Đánh dấu các file .js trong public/ là ES module (import/export chạy trên trình duyệt).
+// Thiếu file này, Vercel coi chúng là CommonJS theo package.json gốc và tự chuyển sang
+// require/exports, làm trình duyệt báo lỗi "exports is not defined" và trang trống.
+fs.writeFileSync(path.join(OUT, 'package.json'), JSON.stringify({ type: 'module', private: true }, null, 2) + '\n');
+
 // 2. Chart.js: chỉ bản thu gọn mà index.html dùng
 fs.mkdirSync(path.join(OUT, 'vendor', 'chart'), { recursive: true });
 fs.copyFileSync(path.join(NM, 'chart.js', 'dist', 'chart.umd.min.js'), path.join(OUT, 'vendor', 'chart', 'chart.umd.min.js'));
